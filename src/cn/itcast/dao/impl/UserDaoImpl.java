@@ -14,7 +14,7 @@ import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
 import cn.itcast.dao.UserDao;
 import cn.itcast.domain.User;
 //HibernateDaoSupport 为dao注入sessionFactory
-public class UserDaoImpl extends HibernateDaoSupport implements UserDao {
+public class UserDaoImpl extends BaseDaoImpl<User> implements UserDao {
 	
 	
 	@Override
@@ -43,10 +43,4 @@ public class UserDaoImpl extends HibernateDaoSupport implements UserDao {
 			return null;
 		}*/
 	}
-
-	@Override
-	public void save(User u) {
-		getHibernateTemplate().save(u);
-	}
-
 }
