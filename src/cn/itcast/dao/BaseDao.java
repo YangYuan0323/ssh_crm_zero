@@ -8,8 +8,10 @@ import org.hibernate.criterion.DetachedCriteria;
 public interface BaseDao<T> {
 	//增
 	void save(T t);
+	
 	//删
 	void delete(T t);
+	
 	//删
 	void delete(Serializable id);
 	//改
