@@ -27,6 +27,9 @@ public class UserDaoImpl extends BaseDaoImpl<User> implements UserDao {
 					Query query = session.createQuery(hql);
 					query.setParameter(0, usercode);
 					User user = (User) query.uniqueResult();
+					
+					System.out.println("---------");
+					
 				return user;
 			}
 		});
