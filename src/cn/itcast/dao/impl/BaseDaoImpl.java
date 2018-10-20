@@ -19,6 +19,7 @@ public class BaseDaoImpl<T> extends HibernateDaoSupport implements BaseDao<T> {
 	public BaseDaoImpl() {
 		// 获得当前类型的带有参数类型的父类
 		ParameterizedType ptClazz = (ParameterizedType) this.getClass().getGenericSuperclass();
+		
 		// 获得运行期的泛型类型
 		clazz = (Class) ptClazz.getActualTypeArguments()[0];
 

@@ -92,6 +92,10 @@
 		scope="prototype">
 		<property name="cs" ref="customerService"></property>
 	</bean>
+	<bean name="baseDictAction" class="cn.itcast.web.action.BaseDictAction"
+		scope="prototype">
+		<property name="baseDictService" ref="baseDictService"></property>
+	</bean>
 	
 	 
 	<!-- service -->
@@ -101,12 +105,18 @@
 	<bean name="customerService" class="cn.itcast.service.impl.CustomerServiceImpl">
 		<property name="cd" ref="customerDao"></property>
 	</bean>
+	<bean name="baseDictService" class="cn.itcast.service.impl.BaseDictServiceImpl">
+		<property name="bdd" ref="baseDictDao"></property>
+	</bean>
 	
 	<!-- dao -->
 	<bean name="userDao" class="cn.itcast.dao.impl.UserDaoImpl">
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
 	<bean name="customerDao" class="cn.itcast.dao.impl.CustomerDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean name="baseDictDao" class="cn.itcast.dao.impl.BaseDictDaoImpl">
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
 

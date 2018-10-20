@@ -25,5 +25,8 @@
             <result name="list">jsp/customer/list.jsp</result>
         </action>
         
+        <!-- 数据字典action -->
+        <action name="BaseDictAction" class="baseDictAction" method="execute"></action>
+        
     </package>
 </struts>
