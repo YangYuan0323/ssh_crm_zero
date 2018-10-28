@@ -16,4 +16,17 @@ public interface CustomerService {
 	 */
 	PageBean getPageBean(DetachedCriteria dc, Integer currentPage, Integer pageSize);
 
+	/**
+	 * 保存客户
+	 * @param customer
+	 */
+	void save(Customer customer);
+
+	/**
+	 * 根据id查询客户
+	 * @param cust_id
+	 * @return
+	 */
+	Customer getById(Long cust_id);
+
 }

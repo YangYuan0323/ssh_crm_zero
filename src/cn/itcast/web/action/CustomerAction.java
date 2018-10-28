@@ -1,5 +1,7 @@
 package cn.itcast.web.action;
 
+import java.io.File;
+
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.DetachedCriteria;
@@ -20,6 +22,13 @@ public class CustomerAction extends ActionSupport implements ModelDriven<Custome
 	private Customer customer = new Customer();
 	
 	private CustomerService cs;
+	//上传的文件会自动封装到file对象
+	//在后台提供一个与前台input type=file组件name相同到属性
+	private File photo;
+	//在提交键名后加上固定后缀FileName，文件名会自动封装到属性中
+	private String photoFileName;
+	//在提交键名后加上固定后缀ContentType，文件MIME类型（text/html）会自动封装到属性中
+	private String photoContentType;
 
 	private Integer currentPage;
 	private Integer pageSize;
@@ -43,6 +52,31 @@ public class CustomerAction extends ActionSupport implements ModelDriven<Custome
 		
 		return "list";
 	}
+	
+	public String add() throws Exception{
+		if(photo != null) {
+			System.out.println("文件名称："+photoFileName);
+			System.out.println("文件类型："+getPhotoContentType());
+			//将上传的文件封装到指定位置
+			photo.renameTo(new File("/Users/yangyuan/Downloads/picture/haha.jpg"));
+			
+		}
+		
+		
+		//---------------------------------------------------------------------------------------------------
+		//1.调用service保存customer对象
+		cs.save(customer);
+		//2.重定向到客户列表action
+		return "toList";
+	}
+	
+	public String toEdit() throws Exception{
+		//1.调用service根据id获得对象
+		Customer c = cs.getById(customer.getCust_id());
+		//2.将客户对象放到request域，并转发到编辑页面
+		ActionContext.getContext().put("customer", c);
+		return "edit";
+	}
 
 	@Override
 	public Customer getModel() {
@@ -52,6 +86,7 @@ public class CustomerAction extends ActionSupport implements ModelDriven<Custome
 	public void setCs(CustomerService cs) {
 		this.cs = cs;
 	}
+	
 
 	public Integer getCurrentPage() {
 		return currentPage;
@@ -67,6 +102,30 @@ public class CustomerAction extends ActionSupport implements ModelDriven<Custome
 
 	public void setPageSize(Integer pageSize) {
 		this.pageSize = pageSize;
+	}
+
+	public File getPhoto() {
+		return photo;
+	}
+
+	public void setPhoto(File photo) {
+		this.photo = photo;
+	}
+
+	public String getPhotoFileName() {
+		return photoFileName;
+	}
+
+	public void setPhotoFileName(String photoFileName) {
+		this.photoFileName = photoFileName;
+	}
+
+	public String getPhotoContentType() {
+		return photoContentType;
+	}
+
+	public void setPhotoContentType(String photoContentType) {
+		this.photoContentType = photoContentType;
 	}
 	
 	

@@ -57,7 +57,7 @@ public class BaseDaoImpl<T> extends HibernateDaoSupport implements BaseDao<T> {
 	}
 
 	@Override
-	public Integer getTotalCount(DetachedCriteria dc) {
+	public Integer getTotalCount(DetachedCriteria dc) { 
 		// 设置查询的聚合函数，总记录数
 		dc.setProjection(Projections.rowCount());
 		List<Long> list = (List<Long>) getHibernateTemplate().findByCriteria(dc);
@@ -76,6 +76,12 @@ public class BaseDaoImpl<T> extends HibernateDaoSupport implements BaseDao<T> {
 	public List<T> getPageList(DetachedCriteria dc, Integer start, Integer pageSize) {
 		List<T> list = (List<T>) getHibernateTemplate().findByCriteria(dc, start, pageSize);
 		return list;
+	}
+
+	@Override
+	public void saveOrUpdate(T t) {
+		getHibernateTemplate().saveOrUpdate(t);
+		
 	}
 
 }

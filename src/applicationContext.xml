@@ -37,23 +37,38 @@
 
 
 	<!-- 配置通知 -->
-	<!-- <tx:advice id="txAdvice" transaction-manager="transactionManager"> 
-		<tx:attributes> <tx:method name="save*" isolation="REPEATABLE_READ" propagation="REQUIRED" 
-		read-only="false" /> <tx:method name="persist*" isolation="REPEATABLE_READ" 
-		propagation="REQUIRED" read-only="false" /> <tx:method name="update*" isolation="REPEATABLE_READ" 
-		propagation="REQUIRED" read-only="false" /> <tx:method name="modify*" isolation="REPEATABLE_READ" 
-		propagation="REQUIRED" read-only="false" /> <tx:method name="delete*" isolation="REPEATABLE_READ" 
-		propagation="REQUIRED" read-only="false" /> <tx:method name="remove*" isolation="REPEATABLE_READ" 
-		propagation="REQUIRED" read-only="false" /> <tx:method name="get*" isolation="REPEATABLE_READ" 
-		propagation="REQUIRED" read-only="true" /> <tx:method name="find*" isolation="REPEATABLE_READ" 
-		propagation="REQUIRED" read-only="true" /> </tx:attributes> </tx:advice> 
-		配置将通知织入目标对象 配置切点 配置切面 <aop:config> <aop:pointcut expression="execution(* 
-		cn.itcast.service.impl.*ServiceImpl.*(..))" id="txPc" /> <aop:advisor advice-ref="txAdvice" 
-		pointcut-ref="txPc" /> </aop:config> -->
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="save*" isolation="REPEATABLE_READ"
+				propagation="REQUIRED" read-only="false" />
+			<tx:method name="persist*" isolation="REPEATABLE_READ"
+				propagation="REQUIRED" read-only="false" />
+			<tx:method name="update*" isolation="REPEATABLE_READ"
+				propagation="REQUIRED" read-only="false" />
+			<tx:method name="modify*" isolation="REPEATABLE_READ"
+				propagation="REQUIRED" read-only="false" />
+			<tx:method name="delete*" isolation="REPEATABLE_READ"
+				propagation="REQUIRED" read-only="false" />
+			<tx:method name="remove*" isolation="REPEATABLE_READ"
+				propagation="REQUIRED" read-only="false" />
+			<tx:method name="get*" isolation="REPEATABLE_READ"
+				propagation="REQUIRED" read-only="true" />
+			<tx:method name="find*" isolation="REPEATABLE_READ" propagation="REQUIRED" read-only="true" />
+			<tx:method name="*" isolation="REPEATABLE_READ" propagation="REQUIRED" read-only="false" />
+		</tx:attributes>
+	</tx:advice>
+	<!-- 配置将通知织入目标对象 配置切点 配置切面 -->
+	<aop:config>
+		<aop:pointcut
+			expression="execution(* 
+		cn.itcast.service.impl.*ServiceImpl.*(..))"
+			id="txPc" />
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="txPc" />
+	</aop:config>
 
 	<!-- ========================================================================================= -->
 	<!-- 开启注解事务 -->
-	<tx:annotation-driven transaction-manager="transactionManager" />
+	<!-- <tx:annotation-driven transaction-manager="transactionManager" /> -->
 
 
 	<!-- 加载配置方案2:在spring配置中放置hibernate配置信息 -->
@@ -96,8 +111,8 @@
 		scope="prototype">
 		<property name="baseDictService" ref="baseDictService"></property>
 	</bean>
-	
-	 
+
+
 	<!-- service -->
 	<bean name="userService" class="cn.itcast.service.impl.UserServiceImpl">
 		<property name="ud" ref="userDao"></property>
@@ -108,7 +123,7 @@
 	<bean name="baseDictService" class="cn.itcast.service.impl.BaseDictServiceImpl">
 		<property name="bdd" ref="baseDictDao"></property>
 	</bean>
-	
+
 	<!-- dao -->
 	<bean name="userDao" class="cn.itcast.dao.impl.UserDaoImpl">
 		<property name="sessionFactory" ref="sessionFactory"></property>
