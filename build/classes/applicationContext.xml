@@ -111,6 +111,10 @@
 		scope="prototype">
 		<property name="baseDictService" ref="baseDictService"></property>
 	</bean>
+	<bean name="linkManAction" class="cn.itcast.web.action.LinkManAction"
+		scope="prototype">
+		<property name="lms" ref="linkManService"></property>
+	</bean>
 
 
 	<!-- service -->
@@ -123,6 +127,9 @@
 	<bean name="baseDictService" class="cn.itcast.service.impl.BaseDictServiceImpl">
 		<property name="bdd" ref="baseDictDao"></property>
 	</bean>
+	<bean name="linkManService" class="cn.itcast.service.impl.LinkManServiceImpl">
+		<property name="lmd" ref="linkManDao"></property>
+	</bean>
 
 	<!-- dao -->
 	<bean name="userDao" class="cn.itcast.dao.impl.UserDaoImpl">
@@ -132,6 +139,9 @@
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
 	<bean name="baseDictDao" class="cn.itcast.dao.impl.BaseDictDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean name="linkManDao" class="cn.itcast.dao.impl.LinkManDaoImpl">
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
 
