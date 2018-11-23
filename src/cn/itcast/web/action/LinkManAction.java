@@ -36,7 +36,7 @@ public class LinkManAction extends ActionSupport implements ModelDriven<LinkMan>
 		if(StringUtils.isNotBlank(linkMan.getLkm_name())) {
 			dc.add(Restrictions.like("lkm_name", "%"+linkMan.getLkm_name()+"%"));
 		}
-		if(linkMan.getCustomer() != null) {
+		if(linkMan.getCustomer() != null && linkMan.getCustomer().getCust_id()!= null) {
 			dc.add(Restrictions.eq("customer.cust_id", linkMan.getCustomer().getCust_id()));
 		}
 		
@@ -58,6 +58,14 @@ public class LinkManAction extends ActionSupport implements ModelDriven<LinkMan>
 		lms.save(linkMan);
 		//2.重定向到联系人列表（404）
 		return super.execute();
+	}
+	
+	public String toEdit() throws Exception{
+		//1.调用service,查询linkMan
+		LinkMan lm = lms.getById(linkMan.getLkm_id());
+		//2.将查询到到linkMan放入request域，转发到添加页面
+		ActionContext.getContext().put("linkMan", lm);
+		return "add";
 	}
 
 	@Override

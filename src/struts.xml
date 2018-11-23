@@ -2,46 +2,75 @@
    <!DOCTYPE struts PUBLIC
 	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
 	"http://struts.apache.org/dtds/struts-2.3.dtd">
-	
+
 <struts>
-    
-    <!-- struts.objectFactory.spring.autoWire = name 将action的配置交给spring容器
-	struts.objectFactory.spring.useClassCache = true 自动装配action依赖-->
-    <constant name="struts.objectFactory.spring.autoWire" value="name"></constant>
-    
-    <package name="crm" namespace="/" extends="struts-default">
-        
-        <!-- 全局异常捕捉器 -->
-        <global-exception-mappings>
-            <exception-mapping result="error" exception="java.lang.RuntimeException"></exception-mapping>
-        </global-exception-mappings>
-        
-        <action name="UserAction_*" class="userAction" method="{1}">
-            <result name="toHome" type="redirect" >/index.htm</result>
-            <result name="error">/login.jsp</result>
-        </action>
-        
-        <action name="CustomerAction_*" class="customerAction" method="{1}">
-            <result name="edit">jsp/customer/add.jsp</result>
-            <result name="list">jsp/customer/list.jsp</result>
-            <result name="toList" type="redirectAction">
-                <param name="namespace">/</param>
-                <param name="actionName">CustomerAction_list</param>
-            </result>
-        </action>
-        
-        <!-- 数据字典action -->
-        <action name="BaseDictAction" class="baseDictAction" method="execute"></action>
-        <!-- 配置联系人action -->
-        <action name="LinkManAction_*" class="linkManAction" method="{1}">
-            <result name="error">jsp/linkman/list.jsp</result>
-            <result name="toList" type="redirectAction">
-                <param name="namespace">/</param>
-                <param name="actionName">LinkManAction_list</param>
-            </result>
-            <result name="list">jsp/linkman/list.jsp</result>
-        </action>
-        
-        
-    </package>
+
+	<!-- struts.objectFactory.spring.autoWire = name 将action的配置交给spring容器 struts.objectFactory.spring.useClassCache 
+		= true 自动装配action依赖 -->
+	<constant name="struts.objectFactory.spring.autoWire" value="name"></constant>
+
+	<package name="crm" namespace="/" extends="struts-default">
+		<!-- 注册拦截器 -->
+		<interceptors>
+			<interceptor name="privilegeInterceptor"
+				class="cn.itcast.web.interceptor.PrivilegeInterceptor"></interceptor>
+			<!-- 配置拦截器 -->
+			<interceptor-stack name="myStack">
+				<interceptor-ref name="privilegeInterceptor">
+					<param name="excludeMethods">login,regist</param>
+				</interceptor-ref>
+				<interceptor-ref name="defaultStack"></interceptor-ref>
+			</interceptor-stack>
+		</interceptors>
+		<!-- 指定默认拦截器 -->
+		<default-interceptor-ref name="myStack"></default-interceptor-ref>
+
+		<!-- 全局结果集配置 -->
+		<global-results>
+			<result name="toLogin" type="redirect">/login.jsp</result>
+		</global-results>
+
+		<!-- 全局异常捕捉器 -->
+		<global-exception-mappings>
+			<exception-mapping result="error"
+				exception="java.lang.RuntimeException"></exception-mapping>
+		</global-exception-mappings>
+
+		<action name="UserAction_*" class="userAction" method="{1}">
+			<result name="toHome" type="redirect">/index.htm</result>
+			<result name="error">/login.jsp</result>
+			<result name="regist">/regist.jsp</result>
+		</action>
+
+		<action name="CustomerAction_*" class="customerAction" method="{1}">
+			<result name="edit">jsp/customer/add.jsp</result>
+			<result name="list">jsp/customer/list.jsp</result>
+			<result name="toList" type="redirectAction">
+				<param name="namespace">/</param>
+				<param name="actionName">CustomerAction_list</param>
+			</result>
+		</action>
+
+		<!-- 数据字典action -->
+		<action name="BaseDictAction" class="baseDictAction" method="execute"></action>
+		<!-- 配置联系人action -->
+		<action name="LinkManAction_*" class="linkManAction" method="{1}">
+			<result name="add">jsp/linkman/add.jsp</result>
+			<result name="error">jsp/linkman/list.jsp</result>
+			<result name="toList" type="redirectAction">
+				<param name="namespace">/</param>
+				<param name="actionName">LinkManAction_list</param>
+			</result>
+			<result name="list">jsp/linkman/list.jsp</result>
+		</action>
+
+		<action name="SaleVisitAction_*" class="saleVisitAction"
+			method="{1}">
+			<result name="toList" type="redirectAction">
+				<param name="namespace">/</param>
+				<param name="actionName">SaleVisitAction_list</param>
+			</result>
+		</action>
+
+	</package>
 </struts>

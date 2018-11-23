@@ -127,7 +127,7 @@
 
 
 													<TD><a
-														href="${pageContext.request.contextPath }/linkmanServlet?method=edit&lkmId=${linkman.lkmId}">修改</a>
+														href="${pageContext.request.contextPath }/LinkManAction_toEdit?lkm_id=<s:property value="#linkMan.lkm_id" />">修改</a>
 														&nbsp;&nbsp; <a
 														href="${pageContext.request.contextPath }/linkmanServlet?method=delete&lkmId=${linkman.lkmId}">删除</a>
 													</TD>

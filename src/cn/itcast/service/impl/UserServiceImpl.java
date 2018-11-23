@@ -27,6 +27,13 @@ public class UserServiceImpl implements UserService {
 	@Override
 	@Transactional(isolation=Isolation.REPEATABLE_READ,propagation=Propagation.REQUIRED,readOnly=false)
 	public void saveUser(User u) {
+		//1.调用dao根据注册的登录名获得用户对象
+		User existU = ud.getByUserCode(u.getUser_code());
+		//2.如果获得到user对象，用户名已经存在，抛出异常
+		if(existU != null) {
+			throw new RuntimeException("用户名已经存在");
+		}
+		//3.调用dao执行保存
 		ud.save(u);
 		
 	}

@@ -12,5 +12,7 @@ public interface LinkManService {
 	void save(LinkMan linkMan);
 	//联系人列表
 	public PageBean getPageBean(DetachedCriteria dc, Integer currentPage, Integer pageSize);
+	//根据id查询linkMan对象
+	LinkMan getById(Long lkm_id);
 
 }

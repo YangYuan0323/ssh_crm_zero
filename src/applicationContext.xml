@@ -115,6 +115,10 @@
 		scope="prototype">
 		<property name="lms" ref="linkManService"></property>
 	</bean>
+	<bean name="saleVisitAction" class="cn.itcast.web.action.SaleVisitAction"
+		scope="prototype">
+		<property name="svs" ref="saleVisitService"></property>
+	</bean>
 
 
 	<!-- service -->
@@ -130,6 +134,9 @@
 	<bean name="linkManService" class="cn.itcast.service.impl.LinkManServiceImpl">
 		<property name="lmd" ref="linkManDao"></property>
 	</bean>
+	<bean name="saleVisitService" class="cn.itcast.service.impl.SaleVisitServiceImpl">
+		<property name="svd" ref="saleVisitDao"></property>
+	</bean>
 
 	<!-- dao -->
 	<bean name="userDao" class="cn.itcast.dao.impl.UserDaoImpl">
@@ -142,6 +149,9 @@
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
 	<bean name="linkManDao" class="cn.itcast.dao.impl.LinkManDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean name="saleVisitDao" class="cn.itcast.dao.impl.SaleVisitDaoImpl">
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
 
